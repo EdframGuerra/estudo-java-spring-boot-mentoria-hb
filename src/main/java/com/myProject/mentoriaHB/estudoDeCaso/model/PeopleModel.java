@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "TB_People")
-public class People implements Serializable {
+public class PeopleModel implements Serializable {
     static final Long serialVersionUID = 1L;
 
     @Id
@@ -22,9 +22,9 @@ public class People implements Serializable {
     @Column(name="Idade", nullable = false)
     private int age;
 
-    public People(){}
+    public PeopleModel(){}
 
-    public People(String name, String surname, int age) {
+    public PeopleModel(String name, String surname, int age) {
         this.name = name;
         this.surname = surname;
         this.age = age;
