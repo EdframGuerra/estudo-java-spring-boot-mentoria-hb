@@ -22,6 +22,14 @@ public class PeopleController {
     public ResponseEntity<Object> savePeople(@RequestBody @Valid PeopleRecordDto peopleRecordDto) {
         var peopleModel = new PeopleModel();
         BeanUtils.copyProperties(peopleRecordDto, peopleModel);
-        return ResponseEntity.status(HttpStatus.CREATED).body(peopleRepository.save(peopleModel));
+        PeopleModel savedPeopleModel = peopleRepository.save(peopleModel);
+
+        String responseMessage = String.format("Meu nome é %s, e tenho %d anos", savedPeopleModel.getName(), savedPeopleModel.getAge());
+
+        if (savedPeopleModel == null || savedPeopleModel.getId() == null) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao salvar a entidade.");
+        }
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseMessage);
     }
 }
